@@ -1,3 +1,5 @@
+use steamctl::cli_options::options;
+
 fn main() {
-    println!("Hello, world!");
+    println!("{:?}", options().run())
 }
