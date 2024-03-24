@@ -4,6 +4,7 @@ version = "0.1.0"
 authors = ["Teoh Han Hui <teohhanhui@gmail.com>"]
 edition = "2021"
 rust-version = "1.79"
+description = "Port of steamctl to Rust."
 repository = "https://github.com/teohhanhui/steamctl-rs"
 license = "MIT OR Apache-2.0"
 
