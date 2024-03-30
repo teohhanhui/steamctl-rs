@@ -3,13 +3,13 @@
 
 use std::borrow::Cow;
 
-use effing_mad::{effectful, handle, handle_group, handler, Effect};
+use effing_mad::{effectful, handle_group, handler};
 use steamctl::cli_options::{options, Options};
 
-struct ConsoleOutput<'a>(Cow<'a, str>);
-
-impl<'a> Effect for ConsoleOutput<'a> {
-    type Injection = ();
+effing_mad::effects! {
+    Console<'a> {
+        fn print(s: Cow<'a, str>) -> ();
+    }
 }
 
 effing_mad::effects! {
@@ -19,8 +19,10 @@ effing_mad::effects! {
 }
 
 fn main() {
-    let console_handler = handler!(ConsoleOutput(s) => println!("{s}"));
-    let with_console = handle(do_command(), console_handler);
+    let console_handler = handler!(Console {
+        print(s, _) => println!("{s}"),
+    });
+    let with_console = handle_group(do_command(), console_handler);
     let cli_options_handler = handler!(CliOptions {
         read() => options().run(),
     });
@@ -29,8 +31,8 @@ fn main() {
     effing_mad::run(with_cli_options);
 }
 
-#[effectful(CliOptions, ConsoleOutput<'a>)]
+#[effectful(CliOptions, Console<'a>)]
 fn do_command<'a>() {
     let options = yield CliOptions::read();
-    yield ConsoleOutput(format!("{options:?}").into());
+    yield Console::print(format!("{options:?}").into());
 }

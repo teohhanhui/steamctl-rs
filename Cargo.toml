@@ -10,5 +10,5 @@ license = "MIT OR Apache-2.0"
 
 [dependencies]
 bpaf = "0.9.10"
-effing-macros = { git = "https://github.com/jwong101/effing-mad", rev = "770c85e6b6eb9128ab098806ee76c54c092d3c3e", version = "0.1.0" }
-effing-mad = { git = "https://github.com/jwong101/effing-mad", rev = "770c85e6b6eb9128ab098806ee76c54c092d3c3e", version = "0.1.0" }
+effing-macros = { git = "https://github.com/rosefromthedead/effing-mad" }
+effing-mad = { git = "https://github.com/rosefromthedead/effing-mad" }

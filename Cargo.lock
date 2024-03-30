@@ -11,7 +11,7 @@ checksum = "670e033211c20c5ca9e90395c7c78fb89143fd4b4eaaad55d65e2eea18d1efc1"
 [[package]]
 name = "effing-macros"
 version = "0.1.0"
-source = "git+https://github.com/jwong101/effing-mad?rev=770c85e6b6eb9128ab098806ee76c54c092d3c3e#770c85e6b6eb9128ab098806ee76c54c092d3c3e"
+source = "git+https://github.com/rosefromthedead/effing-mad#f0022807465b577842aacbde44a52ef33b28f454"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -21,7 +21,7 @@ dependencies = [
 [[package]]
 name = "effing-mad"
 version = "0.1.0"
-source = "git+https://github.com/jwong101/effing-mad?rev=770c85e6b6eb9128ab098806ee76c54c092d3c3e#770c85e6b6eb9128ab098806ee76c54c092d3c3e"
+source = "git+https://github.com/rosefromthedead/effing-mad#f0022807465b577842aacbde44a52ef33b28f454"
 dependencies = [
  "effing-macros",
  "frunk",
@@ -51,7 +51,7 @@ checksum = "b0fa992f1656e1707946bbba340ad244f0814009ef8c0118eb7b658395f19a2e"
 dependencies = [
  "frunk_proc_macro_helpers",
  "quote",
- "syn 2.0.53",
+ "syn 2.0.57",
 ]
 
 [[package]]
@@ -63,7 +63,7 @@ dependencies = [
  "frunk_core",
  "proc-macro2",
  "quote",
- "syn 2.0.53",
+ "syn 2.0.57",
 ]
 
 [[package]]
@@ -106,9 +106,9 @@ dependencies = [
 
 [[package]]
 name = "syn"
-version = "2.0.53"
+version = "2.0.57"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7383cd0e49fff4b6b90ca5670bfd3e9d6a733b3f90c686605aa7eec8c4996032"
+checksum = "11a6ae1e52eb25aab8f3fb9fca13be982a373b8f1157ca14b897a825ba4a2d35"
 dependencies = [
  "proc-macro2",
  "quote",
