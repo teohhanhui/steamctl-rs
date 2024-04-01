@@ -1,4 +1,4 @@
-pub use self::options::{options, Options};
+pub use self::options::{options, process_command, Options};
 
 mod authenticator;
 mod depot;

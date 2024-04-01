@@ -1,13 +1,13 @@
 use bpaf::{construct, OptionParser, Parser};
 
 #[derive(Clone, Debug)]
-pub enum Depot {
+pub enum DepotOptions {
     Download {
         //
     },
 }
 
-pub fn depot() -> OptionParser<Depot> {
+pub fn depot() -> OptionParser<DepotOptions> {
     let download = download()
         .to_options()
         .descr("Download depot files")
@@ -16,8 +16,8 @@ pub fn depot() -> OptionParser<Depot> {
     construct!([download]).to_options()
 }
 
-fn download() -> impl Parser<Depot> {
+fn download() -> impl Parser<DepotOptions> {
     //
 
-    construct!(Depot::Download {})
+    construct!(DepotOptions::Download {})
 }
