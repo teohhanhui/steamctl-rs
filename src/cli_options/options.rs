@@ -5,7 +5,7 @@ use super::{
     authenticator::{authenticator, process_authenticator_command, AuthenticatorOptions},
     depot::{depot, DepotOptions},
 };
-use crate::effects::{CliOptions, Console};
+use crate::effects::{Cli, Console};
 
 #[derive(Clone, Debug)]
 pub enum Options {
@@ -26,9 +26,9 @@ pub fn options() -> OptionParser<Options> {
     construct!([authenticator, depot]).to_options()
 }
 
-#[effectful(CliOptions, Console<'a>)]
+#[effectful(Cli, Console<'a>)]
 pub fn process_command<'a>() {
-    let options = yield CliOptions::read();
+    let options = yield Cli::read_options();
     yield Console::println(format!("{options:?}").into()); // TODO: this should be `Log::debug`?
     match options {
         Options::Authenticator(authenticator_options) => {

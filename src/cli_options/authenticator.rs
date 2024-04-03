@@ -1,5 +1,6 @@
 use bpaf::{construct, long, positional, OptionParser, Parser};
 use effing_mad::effectful;
+use secrecy::ExposeSecret;
 
 use crate::effects::Console;
 
@@ -116,4 +117,7 @@ fn process_authenticator_add_command<'a>(
     yield Console::println("To add an authenticator, first we need to login to Steam".into());
     yield Console::println(format!("Account name: {account}").into());
     yield Console::print(format!("Enter password for '{account}': ").into());
+    let password = yield Console::read_hidden();
+    // TODO: don't expose password
+    yield Console::println(format!("password: {}", password.expose_secret()).into());
 }

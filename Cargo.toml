@@ -10,5 +10,7 @@ license = "MIT OR Apache-2.0"
 
 [dependencies]
 bpaf = "0.9.10"
+crossterm = "0.27.0"
 effing-macros = { git = "https://github.com/rosefromthedead/effing-mad" }
 effing-mad = { git = "https://github.com/rosefromthedead/effing-mad" }
+secrecy = "0.8.0"
