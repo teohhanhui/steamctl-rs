@@ -3,3 +3,4 @@
 
 pub mod cli_options;
 pub mod effects;
+pub mod terminal;

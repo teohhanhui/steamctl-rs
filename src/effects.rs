@@ -14,7 +14,10 @@ pub struct println<'a>(pub Cow<'a, str>);
 pub struct print<'a>(pub Cow<'a, str>);
 
 #[allow(non_camel_case_types)]
-pub struct read_hidden();
+pub struct flush();
+
+#[allow(non_camel_case_types)]
+pub struct read_line_hidden();
 
 pub struct Cli();
 
@@ -30,13 +33,17 @@ impl<'a> Console<'a> {
         print(s)
     }
 
-    pub fn read_hidden() -> read_hidden {
-        read_hidden()
+    pub fn flush() -> flush {
+        flush()
+    }
+
+    pub fn read_line_hidden() -> read_line_hidden {
+        read_line_hidden()
     }
 }
 
 impl<'a> EffectGroup for Console<'a> {
-    type Effects = Coprod!(println<'a>, print<'a>, read_hidden);
+    type Effects = Coprod!(println<'a>, print<'a>, flush, read_line_hidden);
 }
 
 impl<'a> Effect for println<'a> {
@@ -47,7 +54,11 @@ impl<'a> Effect for print<'a> {
     type Injection = ();
 }
 
-impl Effect for read_hidden {
+impl Effect for flush {
+    type Injection = ();
+}
+
+impl Effect for read_line_hidden {
     type Injection = SecretString;
 }
 
