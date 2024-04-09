@@ -1,6 +1,9 @@
 #![feature(coroutine_trait)]
 #![feature(coroutines)]
+#![feature(once_cell_try)]
 
-pub mod cli_options;
+pub(crate) mod cli_options;
+pub mod commands;
 pub mod effects;
-pub mod terminal;
+pub mod handlers;
+pub(crate) mod terminal;

@@ -1,8 +1,4 @@
 use bpaf::{construct, long, positional, OptionParser, Parser};
-use effing_mad::effectful;
-use secrecy::ExposeSecret;
-
-use crate::effects::Console;
 
 #[derive(Clone, Debug)]
 pub enum AuthenticatorOptions {
@@ -84,41 +80,4 @@ fn qr_code() -> impl Parser<AuthenticatorOptions> {
 
 fn account() -> impl Parser<String> {
     positional("account").help("Account name")
-}
-
-#[effectful(Console<'a>)]
-pub fn process_authenticator_command<'a>(options: AuthenticatorOptions) {
-    match options {
-        AuthenticatorOptions::Add {
-            account,
-            force,
-            from_secret,
-        } => process_authenticator_add_command(account, force, from_secret).do_,
-        AuthenticatorOptions::Code { account } => {
-            todo!()
-        },
-        AuthenticatorOptions::QrCode {
-            account,
-            compat,
-            invert,
-        } => {
-            todo!()
-        },
-    }
-}
-
-#[effectful(Console<'a>)]
-fn process_authenticator_add_command<'a>(
-    account: String,
-    force: bool,
-    from_secret: Option<String>,
-) {
-    // TODO: `force` and `from_secret`
-    yield Console::println("To add an authenticator, first we need to login to Steam".into());
-    yield Console::println(format!("Account name: {account}").into());
-    yield Console::print(format!("Enter password for '{account}': ").into());
-    yield Console::flush();
-    let password = yield Console::read_line_hidden();
-    // TODO: don't expose password
-    yield Console::println(format!("password: {:?}", password.expose_secret()).into());
 }
