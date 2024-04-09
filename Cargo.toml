@@ -10,8 +10,11 @@ license = "MIT OR Apache-2.0"
 
 [dependencies]
 bpaf = "0.9.10"
-effing-macros = { git = "https://github.com/rosefromthedead/effing-mad" }
+effing-macros = { git = "https://github.com/rosefromthedead/effing-mad"}
 effing-mad = { git = "https://github.com/rosefromthedead/effing-mad" }
 parking_lot = { version = "0.12.1", features = ["nightly"] }
 secrecy = "0.8.0"
 termios = "0.3.3"
+
+[patch.'https://github.com/rosefromthedead/effing-mad']
+effing-macros = { git = "https://github.com/teohhanhui/effing-mad", branch = "effects-macro-vis" }

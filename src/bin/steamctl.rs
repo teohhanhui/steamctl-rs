@@ -11,7 +11,7 @@ use steamctl::{
 };
 
 fn main() {
-    let console_handler = handler!(Console {
+    let console_handler = handler!(Console<'_> {
         println(s) => println!("{s}"),
         print(s) => print!("{s}"),
         flush() => {

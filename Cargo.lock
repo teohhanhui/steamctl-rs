@@ -29,7 +29,7 @@ checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 [[package]]
 name = "effing-macros"
 version = "0.1.0"
-source = "git+https://github.com/rosefromthedead/effing-mad#f0022807465b577842aacbde44a52ef33b28f454"
+source = "git+https://github.com/teohhanhui/effing-mad?branch=effects-macro-vis#e5751df133ab90e170eabd2c0aa244ccaf276571"
 dependencies = [
  "proc-macro2",
  "quote",
