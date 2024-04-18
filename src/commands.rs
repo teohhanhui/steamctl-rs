@@ -4,14 +4,14 @@ use tracing::debug;
 
 use crate::{
     cli_options::Options,
-    effects::{Cli, Console, SteamWebApi},
+    effects::{Cli, Console, SteamWebApi, UserLogin},
 };
 
 mod authenticator;
 mod common;
 mod depot;
 
-#[effectful(Cli, Console<'a>, SteamWebApi<'a>)]
+#[effectful(Cli, Console<'a>, SteamWebApi<'a>, UserLogin)]
 pub fn process<'a>() -> Result<()> {
     let options = yield Cli::read_options();
     debug!(?options);

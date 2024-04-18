@@ -1,22 +1,22 @@
+use std::sync::Arc;
+
 use anyhow::Result;
 use effing_mad::effectful;
-use secrecy::{ExposeSecret, SecretString};
-use steamguard::{
-    protobufs::steammessages_auth_steamclient::EAuthTokenPlatformType,
-    token::Tokens,
-    DeviceDetails,
-    LoginError,
-    UserLogin,
-};
+use parking_lot::RwLock;
+use secrecy::SecretString;
+use steamguard::{token::Tokens, LoginError};
 use tracing::{debug, error, info};
 
-use crate::effects::{Console, SteamWebApi};
+use crate::effects::{Console, SteamWebApi, UserLogin};
 
-#[effectful(Console<'a>, SteamWebApi<'a>)]
+#[effectful(Console<'a>, SteamWebApi<'a>, UserLogin)]
 pub fn login<'a>(username: String, password: Option<SecretString>) -> Result<Tokens> {
     let transport = (yield SteamWebApi::_transport())?;
 
-    let mut login = UserLogin::new(transport.clone(), build_device_details());
+    let login = Arc::new(RwLock::new(steamguard::UserLogin::new(
+        transport.clone(),
+        yield UserLogin::_build_device_details(),
+    )));
 
     let mut password = if let Some(p) = password {
         p
@@ -25,9 +25,11 @@ pub fn login<'a>(username: String, password: Option<SecretString>) -> Result<Tok
     };
     let confirmation_methods;
     loop {
-        // TODO: this is obviously an I/O effect... but I have tried and failed to
-        // appease the compiler
-        match login.begin_auth_via_credentials(&username, password.expose_secret()) {
+        match yield UserLogin::begin_auth_via_credentials(
+            Arc::clone(&login),
+            username.clone(),
+            password,
+        ) {
             Ok(methods) => {
                 confirmation_methods = methods;
                 break;
@@ -62,18 +64,4 @@ fn prompt_password<'a>(prompt: String) -> Result<SecretString> {
     yield Console::print(prompt.into());
     (yield Console::flush())?;
     yield Console::read_line_hidden()
-}
-
-fn build_device_details() -> DeviceDetails {
-    DeviceDetails {
-        friendly_name: format!(
-            "{} (steamctl)",
-            gethostname::gethostname()
-                .into_string()
-                .expect("failed to get hostname")
-        ),
-        platform_type: EAuthTokenPlatformType::k_EAuthTokenPlatformType_MobileApp,
-        os_type: -500,
-        gaming_device_type: 528,
-    }
 }

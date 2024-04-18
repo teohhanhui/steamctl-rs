@@ -2,6 +2,7 @@
 #![feature(coroutines)]
 #![feature(once_cell_try)]
 
+pub(crate) mod api_responses;
 pub(crate) mod cli_options;
 pub mod commands;
 pub mod effects;

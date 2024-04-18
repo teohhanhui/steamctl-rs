@@ -4,10 +4,10 @@ use effing_mad::effectful;
 use super::common::login;
 use crate::{
     cli_options::AuthenticatorOptions,
-    effects::{Console, SteamWebApi},
+    effects::{Console, SteamWebApi, UserLogin},
 };
 
-#[effectful(Console<'a>, SteamWebApi<'a>)]
+#[effectful(Console<'a>, SteamWebApi<'a>, UserLogin)]
 pub fn process<'a>(options: AuthenticatorOptions) -> Result<()> {
     match options {
         AuthenticatorOptions::Add {
@@ -29,7 +29,7 @@ pub fn process<'a>(options: AuthenticatorOptions) -> Result<()> {
     Ok(())
 }
 
-#[effectful(Console<'a>, SteamWebApi<'a>)]
+#[effectful(Console<'a>, SteamWebApi<'a>, UserLogin)]
 pub fn add<'a>(account: String, force: bool, from_secret: Option<String>) -> Result<()> {
     // TODO: `force` and `from_secret`
     yield Console::println("To add an authenticator, first we need to login to Steam".into());
